@@ -1,0 +1,20 @@
+{
+    "name": "vidiasoft/rappiform",
+    "description": "Proyecto de actualizacion de Rappi SQLServer",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "José Gutiérrez",
+            "email": "gutiecuador@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
+        "files": ["config/Global.php"]
+    }
+}

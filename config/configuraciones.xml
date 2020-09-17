@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<xmlConfig>
+    <empresas>
+        <empresa dbName="MODELOKIND_V7">Modelo Kindred</empresa>
+    </empresas>
+    <documentos>
+        <documento codtipoDOC="COTPV">Cotizacion PVT</documento>
+    </documentos>
+</xmlConfig>
