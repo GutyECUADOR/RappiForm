@@ -2,13 +2,13 @@
 const app = new Vue({
     el: '#app',
     data: {
-      titulo: 'Productos de Shopify KAO',
+      titulo: 'Productos de Rappi KAO',
       productos: [],
-      producto_activo: null
+      nuevoProducto: null
     },
     methods:{
         getAllProductos(codigo=''){
-            fetch(`./views/modulos/ajax/api.php?action=getAllProductos_Shopy_Master&codigo=${ codigo }`)
+            fetch(`./api/index.php?action=getAllProductos_Shopy_Master&codigo=${ codigo }`)
             .then(response => {
                 return response.json();
             })
@@ -45,7 +45,7 @@ const app = new Vue({
                 let formData = new FormData();
                 formData.append('producto', JSON.stringify(this.productos[index]));  
 
-                fetch(`./views/modulos/ajax/api.php?action=postActualizaProducto_Shopy_Master`, {
+                fetch(`./api/index.php?action=postActualizaProducto_Shopy_Master`, {
                     method: 'POST',
                     body: formData
                 })

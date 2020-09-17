@@ -8,8 +8,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#" data-toggle="modal" data-target="#modal_productoDetail"><?php echo APP_NAME; ?></a>
-      
+     
+      <a class="navbar-brand">
+        <img alt="Brand" data-toggle="modal" data-target="#modal_info_sesion" src="./assets/img/logo.png" style="width: 100px;">
+      </a>
     </div>
 
     

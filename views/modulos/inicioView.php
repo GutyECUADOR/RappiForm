@@ -8,7 +8,9 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
  <?php include 'sis_modules/header_main.php'?>
 
     <div id="app" class="container card">
-       
+        <!-- Hidden Inputs-->
+        <input id="hiddenBodegaDefault" type="hidden" value="<?php echo $_SESSION["bodegaDefault"]?>">
+
         <!-- Row de cabecera-->
         <div class="row">
             <div class="col-md-12">
@@ -16,59 +18,201 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                     <div class="text-center">
                         <h3>{{ titulo }}</h3>
                     </div>
-                    
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- agregar productos-->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                <!-- Default panel contents -->
             
-                    <div class="input-group select-group">
-                        <input type="text" id="inputBusquedaProducto" placeholder="Termino de busqueda..." class="form-control" value="" style="width: 75%;"/>
-                        <select id="tipoBusquedaModalCliente" class="form-control input-group-addon" style="width: 25%;">
-                            <option value="CODIGO">Codigo</option>
-                            <option value="NOMBRE">Nombre</option>
-                            
-                        </select>
-                        <div class="input-group-btn">
-                            <button id="searchClienteModal" type="button" class="btn btn-primary" aria-label="Help">
-                                <span class="glyphicon glyphicon-search"></span> Buscar
-                            </button>
-                        </div> 
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo Item</h4>
+                    
+                </div>
+                                     
+                <div class="panel-body">
+                    <div class="responsibetable">     
+                        <table id="tablaAgregaNuevo" class="table table-bordered tableExtras">
+                            <thead>
+                            <tr>
+                                <th style="min-width: 170px;" class="text-center">Codigo Winfenix</th>
+                                <th style="min-width: 200px;" class="text-center">Nombre del Articulo</th>
+                                <th style="min-width: 110px;"  class="text-center">Ref. Aliado</th>
+                                <th style="min-width: 110px;" class="text-center">Descripcion Rappi</th>
+                                <th style="min-width: 130px;" class="text-center">SKU</th>
+                                <th style="min-width: 100px;" class="text-center">Marca</th>
+                                <th style="min-width: 110px;" class="text-center">Categoria1</th>
+                                <th style="min-width: 110px;" class="text-center">Categoria2</th>
+                                <th style="min-width: 110px;" class="text-center">Categoria3</th>
+                                <th style="min-width: 110px;" class="text-center">Categoria4</th>
+                                <th style="min-width: 120px;" class="text-center">Tipo Variante</th>
+                                <th style="min-width: 120px;" class="text-center">Valor de la Variante</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                        <input type="text" id="inputNuevoCodProducto" class="form-control text-center input-sm" placeholder="Cod Producto...">
+                                        <span class="input-group-btn">
+                                            <button id="btnSeachProductos" class="btn btn-default input-sm" type="button" data-toggle="modal" data-target="#modalBuscarProducto">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        </div><!-- /input-group -->
+                                    </td>
+                                    <td>
+                                        <input type="text" id="inputNuevoProductoNombre" class="form-control text-center input-sm" readonly>
+                                    </td>
+                                    <td>
+                                        <select id='refaliado' class="form-control input-sm">
+                                            <option>Rappi </option>
+                                            <option>Shopify</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                        <input type="text" id='descripcion' class="form-control text-center input-sm" readonly>
+                                        <span class="input-group-btn">
+                                            <button id="btnDetallePromo" class="btn btn-default input-sm" type="button" data-toggle="modal" data-target="#modalAddExtraDetail">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="text" id='sku' class="form-control text-center input-sm">
+                                    </td>
+                                    <td>
+                                        <select id='marca' class="form-control input-sm">
+                                            <option>Aurik </option>
+                                            <option>Lotto</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id='categoria1' class="form-control input-sm">
+                                            <option>Deportes </option>
+                                            <option>Fitness</option>
+                                        </select>
+                                    </td>
+                                    
+                                    <td>
+                                        <select id='categoria2' class="form-control input-sm">
+                                            <option>Deportes </option>
+                                            <option>Fitness</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id='categoria3' class="form-control input-sm">
+                                            <option>Deportes </option>
+                                            <option>Fitness</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id='categoria4' class="form-control input-sm">
+                                            <option>Deportes </option>
+                                            <option>Fitness</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control input-sm">
+                                            <option>Color </option>
+                                            <option>Tamaño</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text"  class="form-control text-center input-sm">
+                                    </td>
+                                   
+                                </tr>
+
+                                
+                                
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnAgregarProdToList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar item</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row"> 
+        <!-- items en lista-->
+
+        <div class="row">
             <div class="col-md-12">
-            <table class="table table-striped table-sm" id="tbl_productos">
-                <thead>
-                    <tr>
-                    <th scope="col">Codigo</th>
-                    <th scope="col">Nombre de Producto</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Ultima Actualizacion</th>
-                    <th scope="col" class="text-right">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="producto in productos">
-                        <th scope="row">{{ producto.CODIGO }}</th>
-                        <td>{{ producto.NOMBRE }}</td>
-                        <td>{{ producto.GRUPO }}</td>
-                        <td>-</td>
-                        <td class="text-right">
-                            <button type="button" @click="showModalDetail(producto)" class="btn btn-primary btn-sm">Editar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                
+                    <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Items a publicar en Rappi</h4>
+                    <div class="btn-group pull-right">
+                    </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="responsibetable">        
+                            <table class="table table-bordered tableExtras">
+                                <thead>
+                                    <tr>
+                                    <th style="min-width: 170px;" class="text-center">Codigo Winfenix</th>
+                                    <th style="min-width: 200px;" class="text-center">Nombre del Articulo</th>
+                                    <th style="min-width: 110px;"  class="text-center">Ref. Aliado</th>
+                                    <th style="min-width: 110px;" class="text-center">Descripcion Rappi</th>
+                                    <th style="min-width: 130px;" class="text-center">SKU</th>
+                                    <th style="min-width: 100px;" class="text-center">Marca</th>
+                                    <th style="min-width: 110px;" class="text-center">Categoria1</th>
+                                    <th style="min-width: 110px;" class="text-center">Categoria2</th>
+                                    <th style="min-width: 110px;" class="text-center">Categoria3</th>
+                                    <th style="min-width: 110px;" class="text-center">Categoria4</th>
+                                    <th style="min-width: 120px;" class="text-center">Tipo Variante</th>
+                                    <th style="min-width: 120px;" class="text-center">Valor de la Variante</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tablaProductos">
+                                    <!--Resultados de busqueda aqui -->
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
         </div>
 
-      
-        <!-- Modal  -->
-        <?php require_once 'sis_modules/modal_productoDetail.php'?>
+        <div class="row extraButton">
+            <div class="col-md-12">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                
+
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary btn-lg" id="btnGuardar"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Registrar</button>
+                    </div>
+
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-danger btn-lg" id="btnCancel"><span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span> Cancelar</button>
+                    </div>
+               
+                </div>
+            </div>
+        </div>    
+
+        <!-- Modal Info sesion -->
+        <?php require_once 'modals/modal_info_session.php'?>
+
+        <!-- Modal Info sesion -->
+        <?php require_once 'modals/modal_producto.php'?>
+
+        <!-- Modal Info sesion -->
+        <?php require_once 'modals/modalAddExtraDetail.php'?>
+         
      
     </div>
-
 
     <!-- USO JQUERY, y Bootstrap CDN-->
     <script src="assets\js\vue.js"></script>

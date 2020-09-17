@@ -55,7 +55,7 @@ class loginModel extends conexion {
 
     /* Retorna el nombre array con la clave Codigo, Nombre para el nombre de la instancia, para ser usada en la conexion*/ 
     public function getAllDataBaseList(){
-        $query = "SELECT * FROM SBIOKAO.dbo.Empresas_WF"; 
+        $query = "SELECT * FROM SBIOKAO.dbo.Empresas_WF WHERE Codigo IN ('001','009')"; 
         $stmt = $this->instancia->prepare($query); 
      
             if($stmt->execute()){
