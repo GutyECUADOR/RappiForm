@@ -58,7 +58,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                 <tr>
                                     <td>
                                         <div class="input-group">
-                                        <input type="text" id="inputNuevoCodProducto" class="form-control text-center input-sm" placeholder="Cod Producto...">
+                                        <input type="text" id="inputNuevoCodProducto" v-on:keyup="buscarProducto" class="form-control text-center input-sm" placeholder="Cod Producto...">
                                         <span class="input-group-btn">
                                             <button id="btnSeachProductos" class="btn btn-default input-sm" type="button" data-toggle="modal" data-target="#modalBuscarProducto">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -67,12 +67,14 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         </div><!-- /input-group -->
                                     </td>
                                     <td>
-                                        <input type="text" id="inputNuevoProductoNombre" class="form-control text-center input-sm" readonly>
+                                        <input type="text" v-model='nuevoProducto.nombre' class="form-control text-center input-sm" readonly>
                                     </td>
                                     <td>
-                                        <select id='refaliado' class="form-control input-sm">
-                                            <option>Rappi </option>
-                                            <option>Shopify</option>
+                                        <select id="aliados" v-model='nuevoProducto.refaliado' class="form-control input-sm">
+                                            <option value="">Seleccione por favor</option>
+                                            <option v-for="aliado in aliados" :value="aliado.CODIGO_ECCOMERCE">
+                                            {{aliado.NOMBRE}}
+                                            </option>
                                         </select>
                                     </td>
                                     <td>
@@ -86,47 +88,59 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="text" id='sku' class="form-control text-center input-sm">
+                                        <input type="text" v-model='nuevoProducto.sku' class="form-control text-center input-sm">
                                     </td>
                                     <td>
-                                        <select id='marca' class="form-control input-sm">
-                                            <option>Aurik </option>
-                                            <option>Lotto</option>
+                                        <select id="marcas" v-model='nuevoProducto.marca' class="form-control input-sm">
+                                            <option value="">Seleccione por favor</option>
+                                            <option v-for="marca in marcas" :value="marca.CODIGO">
+                                            {{marca.NOMBRE}}
+                                            </option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select id='categoria1' class="form-control input-sm">
-                                            <option>Deportes </option>
-                                            <option>Fitness</option>
+                                        <select id="categoria1" v-model='nuevoProducto.categoria1' class="form-control input-sm">
+                                            <option value="">Seleccione por favor</option>
+                                            <option v-for="categoria in categorias1" :value="categoria.CODIGO">
+                                                {{categoria.NOMBRE}}
+                                            </option>
                                         </select>
                                     </td>
                                     
                                     <td>
-                                        <select id='categoria2' class="form-control input-sm">
-                                            <option>Deportes </option>
-                                            <option>Fitness</option>
+                                        <select id="categoria2" v-model='nuevoProducto.categoria2' class="form-control input-sm">
+                                            <option value="">Seleccione por favor</option>
+                                            <option v-for="categoria in categorias2" :value="categoria.CODIGO">
+                                                {{categoria.NOMBRE}}
+                                            </option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select id='categoria3' class="form-control input-sm">
-                                            <option>Deportes </option>
-                                            <option>Fitness</option>
+                                        <select id="categoria3" v-model='nuevoProducto.categoria3' class="form-control input-sm">
+                                            <option value="">Seleccione por favor</option>
+                                            <option v-for="categoria in categorias3" :value="categoria.CODIGO">
+                                                {{categoria.NOMBRE}}
+                                            </option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select id='categoria4' class="form-control input-sm">
-                                            <option>Deportes </option>
-                                            <option>Fitness</option>
+                                        <select id="categoria4" v-model='nuevoProducto.categoria4' class="form-control input-sm">
+                                            <option value="">Seleccione por favor</option>
+                                            <option v-for="categoria in categorias4" :value="categoria.CODIGO">
+                                                {{categoria.NOMBRE}}
+                                            </option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control input-sm">
-                                            <option>Color </option>
-                                            <option>Tamaño</option>
+                                        <select id="tiposVariantes" v-model='nuevoProducto.tipoVariante' class="form-control input-sm">
+                                            <option value="">Seleccione por favor</option>
+                                            <option v-for="variante in tiposVariantes" :value="variante.CODIGO">
+                                            {{variante.NOMBRE}}
+                                            </option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text"  class="form-control text-center input-sm">
+                                        <input type="text" v-model='nuevoProducto.valorVariante' class="form-control text-center input-sm">
                                     </td>
                                    
                                 </tr>
@@ -135,7 +149,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                 
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-primary btn-sm" id="btnAgregarProdToList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar item</button>
+                        <button type="button" class="btn btn-primary btn-sm" @click='addProductToList'><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar item</button>
                         </div>
                     </div>
                 </div>
@@ -172,10 +186,95 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                     <th style="min-width: 110px;" class="text-center">Categoria4</th>
                                     <th style="min-width: 120px;" class="text-center">Tipo Variante</th>
                                     <th style="min-width: 120px;" class="text-center">Valor de la Variante</th>
+                                    <th style="min-width: 50px;" class="text-center">Eliminar</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tablaProductos">
-                                    <!--Resultados de busqueda aqui -->
+                                    <tr v-for="producto in productos">
+                                        <td>
+                                            <input type="text" :value="producto.codigo" class="form-control text-center input-sm" readonly>
+                                            
+                                        </td>
+                                        <td>
+                                            <input type="text" v-model='producto.nombre' class="form-control text-center input-sm" readonly>
+                                        </td>
+                                        <td>
+                                            <select id="aliados" v-model='producto.refaliado' class="form-control input-sm">
+                                                <option value="">Seleccione por favor</option>
+                                                <option v-for="aliado in aliados" :value="aliado.CODIGO_ECCOMERCE">
+                                                {{aliado.NOMBRE}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                            <input type="text" id='descripcion' class="form-control text-center input-sm" readonly>
+                                            <span class="input-group-btn">
+                                                <button id="btnDetallePromo" class="btn btn-default input-sm" type="button" data-toggle="modal" data-target="#modalAddExtraDetail">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" v-model='producto.sku' class="form-control text-center input-sm">
+                                        </td>
+                                        <td>
+                                            <select id="marcas" v-model='producto.marca' class="form-control input-sm">
+                                                <option value="">Seleccione por favor</option>
+                                                <option v-for="marca in marcas" :value="marca.CODIGO">
+                                                {{marca.NOMBRE}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select id="categoria1" v-model='producto.categoria1' class="form-control input-sm">
+                                                <option value="">Seleccione por favor</option>
+                                                <option v-for="categoria in categorias1" :value="categoria.CODIGO">
+                                                    {{categoria.NOMBRE}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        
+                                        <td>
+                                            <select id="categoria2" v-model='producto.categoria2' class="form-control input-sm">
+                                                <option value="">Seleccione por favor</option>
+                                                <option v-for="categoria in categorias2" :value="categoria.CODIGO">
+                                                    {{categoria.NOMBRE}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select id="categoria3" v-model='producto.categoria3' class="form-control input-sm">
+                                                <option value="">Seleccione por favor</option>
+                                                <option v-for="categoria in categorias3" :value="categoria.CODIGO">
+                                                    {{categoria.NOMBRE}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select id="categoria4" v-model='producto.categoria4' class="form-control input-sm">
+                                                <option value="">Seleccione por favor</option>
+                                                <option v-for="categoria in categorias4" :value="categoria.CODIGO">
+                                                    {{categoria.NOMBRE}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select id="tiposVariantes" v-model='producto.tipoVariante' class="form-control input-sm">
+                                                <option value="">Seleccione por favor</option>
+                                                <option v-for="variante in tiposVariantes" :value="variante.CODIGO">
+                                                {{variante.NOMBRE}}
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" v-model='producto.valorVariante' class="form-control text-center input-sm">
+                                        </td>
+                                        <td>
+                                            <button type="button" @click="deleteProductToList(producto)" class="btn btn-danger btn-sm btn-block" ><span class="glyphicon glyphicon-trash"></span></button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                                 
                             </table>
@@ -233,4 +332,5 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
     <script type="text/javascript" src="<?php echo ROOT_PATH; ?>assets\js\datepicker.js"></script>
     <script type="text/javascript" src="<?php echo ROOT_PATH; ?>assets\js\xlsx.full.min.js"></script>
     
+    <script type="text/javascript" src="<?php echo ROOT_PATH; ?>assets\js\clases\producto.js"></script>
     <script type="text/javascript" src="<?php echo ROOT_PATH; ?>assets\js\pages\app.js"></script>

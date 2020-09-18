@@ -13,6 +13,14 @@ class ajax{
       $this->ajaxController = new ajaxController();
     }
 
+    public function getInfoInitForm() {
+      return $this->ajaxController->getInfoInitForm();
+    }
+
+    public function getInfoProducto($busqueda) {
+      return $this->ajaxController->getInfoProducto($busqueda);
+    }
+
     public function getAllProductos_Shopy_Master() {
       return $this->ajaxController->getAllProductos_Shopy_Master();
     }
@@ -38,37 +46,58 @@ class ajax{
 
     switch ($HTTPaction) {
 
-        case 'getAllProductos_Shopy_Master':
-          if (isset($_GET['codigo'])) {
-            $codigo = $_GET['codigo'];
-            $respuesta = $ajax->getAllProductos_Shopy_Master();
-            $rawdata = array('status' => 'success', 'mensaje' => 'respuesta correcta', 'productos' => $respuesta);
-          }else{
-            $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
-          }
-          
+      case 'getInfoInitForm':
+        $respuesta = $ajax->getInfoInitForm();
+        $rawdata = array('status' => 'success', 'mensaje' => 'respuesta correcta', 'data'=> $respuesta);
+        echo json_encode($rawdata);
+
+      break;
+
+      case 'getInfoProducto':
+
+        if (isset($_GET['busqueda']) ) {
+          $busqueda = json_decode($_GET['busqueda']);
+          $respuesta = $ajax->getInfoProducto($busqueda);
+          $rawdata = array('status' => 'OK', 'mensaje' => 'respuesta correcta', 'busqueda'=> $busqueda, 'data' => $respuesta);
+        }else{
+          $rawdata = array('status' => 'ERROR', 'mensaje' => 'No se ha indicado parámetros.');
+        }
+        
+      
+        echo json_encode($rawdata);
+
+      break;
+
+      case 'getAllProductos_Shopy_Master':
+        if (isset($_GET['codigo'])) {
+          $codigo = $_GET['codigo'];
+          $respuesta = $ajax->getAllProductos_Shopy_Master();
+          $rawdata = array('status' => 'success', 'mensaje' => 'respuesta correcta', 'productos' => $respuesta);
+        }else{
+          $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
+        }
+        
+        echo json_encode($rawdata);
+
+      break;
+
+      case 'postActualizaProducto_Shopy_Master':
+        if (isset($_POST['producto'])) {
+          $producto = json_decode($_POST['producto']);
+          $respuesta = $ajax->postActualizaProducto_Shopy_Master($producto);
+          $rawdata = array('status' => 'success', 'mensaje' => 'Producto Actualizado Correctamente', 'producto' => $producto, 'respuesta' => $respuesta);
+        }else{
+          $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
+        }
+        
+        echo json_encode($rawdata);
+
+      break;
+
+      default:
+          $rawdata = array('status' => 'error', 'mensaje' =>'El API no ha podido responder la solicitud, revise el tipo de action');
           echo json_encode($rawdata);
-
-        break;
-
-        case 'postActualizaProducto_Shopy_Master':
-          if (isset($_POST['producto'])) {
-            $producto = json_decode($_POST['producto']);
-            $respuesta = $ajax->postActualizaProducto_Shopy_Master($producto);
-            $rawdata = array('status' => 'success', 'mensaje' => 'Producto Actualizado Correctamente', 'producto' => $producto, 'respuesta' => $respuesta);
-          }else{
-            $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
-          }
-          
-          echo json_encode($rawdata);
-
-        break;
-
-
-        default:
-            $rawdata = array('status' => 'error', 'mensaje' =>'El API no ha podido responder la solicitud, revise el tipo de action');
-            echo json_encode($rawdata);
-        break;
+      break;
     }
     
   } catch (Exception $ex) {

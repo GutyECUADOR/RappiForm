@@ -11,7 +11,7 @@
                    
                     <div class="form-group">
                         <label for="comment">Detalle:</label>
-                        <textarea class="form-control tiny" rows="5" id="extraDetailContent"></textarea>
+                        <textarea v-model='nuevoProducto.descripcion' class="form-control" rows="5" id="extraDetailContent"></textarea>
                     </div>
 
                 </form>

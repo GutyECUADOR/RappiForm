@@ -4,20 +4,75 @@ const app = new Vue({
     data: {
       titulo: 'Productos de Rappi KAO',
       productos: [],
-      nuevoProducto: null
+      nuevoProducto: new Producto(),
+      aliados: [],
+      marcas: [],
+      categorias1: [],
+      categorias2: [],
+      categorias3: [],
+      categorias4: [],
+      tiposVariantes: []
+     
     },
     methods:{
-        getAllProductos(codigo=''){
-            fetch(`./api/index.php?action=getAllProductos_Shopy_Master&codigo=${ codigo }`)
-            .then(response => {
+        init(){
+            fetch(`./api/index.php/api.php?action=getInfoInitForm`)
+                .then( response => {
                 return response.json();
-            })
-            .then(data => {
-                console.log('Productos', data);
-                this.productos = data.productos;  
-            }).catch(function(error) {
+                })
+                .then( result => {
+                console.log('InitForm', result.data);
+                this.aliados = result.data.aliados;
+                this.marcas = result.data.marcas;
+                this.categorias1 = result.data.categorias1;
+                this.categorias2 = result.data.categorias2;
+                this.categorias3 = result.data.categorias3;
+                this.categorias4 = result.data.categorias4;
+                this.categorias4 = result.data.categorias4;
+                this.tiposVariantes = result.data.tiposVariantes
+            }).catch( error => {
                 console.error(error);
             });  
+        },
+
+        buscarProducto(){
+            let codigo = document.querySelector('#inputNuevoCodProducto').value;
+            let busqueda = JSON.stringify({codigo});
+            fetch(`./api/index.php/api.php?action=getInfoProducto&busqueda=${ busqueda }`)
+                .then( response => {
+                return response.json();
+                })
+                .then( result => {
+                    console.log(result)
+                    if (result.data) {
+                        let producto = result.data;
+                        this.nuevoProducto.codigo = producto.CODIGO;
+                        this.nuevoProducto.nombre = producto.NOMBRE;
+                    }
+            }).catch( error => {
+                console.error(error);
+            });  
+        },
+        addProductToList(){
+            let existeInArray = this.productos.findIndex( (productoEnArray) => {
+                return productoEnArray.codigo === this.nuevoProducto.codigo;
+            });
+
+            if (existeInArray === -1) { 
+                this.productos.push(this.nuevoProducto);
+                this.nuevoProducto = new Producto();
+            } else {
+                alert('El item ' + this.nuevoProducto.codigo + ' ya existe en la lista');
+            }
+            console.log(this.productos)
+        },
+        deleteProductToList(producto) {
+
+            let index = this.producto.variantes.findIndex(function (productoEnArray) {
+                return productoEnArray.codigo === producto.codigo;
+            });
+
+            this.productos.splice(index, 1);
         },
         showModalDetail(producto){
             console.log(producto);
@@ -29,44 +84,10 @@ const app = new Vue({
             tinymce.get('producto_descripcion').setContent(producto.DESCRIPCION);
             $('#modal_productoDetail').modal('show');
         },
-        actualizarProducto(){
-            let newContent =  tinymce.get('producto_descripcion').getContent();
-            let index = this.productos.findIndex( producto => {
-                return producto.CODIGO == this.producto_activo;
-            });
-
-            if (index == -1){ 
-                alert('No se encontro el codigo de producto para actualizar.');
-                return; 
-            }
-            
-                this.productos[index].DESCRIPCION = newContent;
-
-                let formData = new FormData();
-                formData.append('producto', JSON.stringify(this.productos[index]));  
-
-                fetch(`./api/index.php?action=postActualizaProducto_Shopy_Master`, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Producto Actalizado', data);
-                    this.getAllProductos();
-                    alert(data.mensaje)
-                }).catch(function(error) {
-                    console.error(error);
-                });  
-
-           
-            
-            
-        }
+      
     },
     mounted(){
-        this.getAllProductos();
+        this.init();
       }
   })
 
