@@ -68,7 +68,7 @@ const app = new Vue({
         },
         deleteProductToList(producto) {
 
-            let index = this.producto.variantes.findIndex(function (productoEnArray) {
+            let index = this.productos.findIndex(function (productoEnArray) {
                 return productoEnArray.codigo === producto.codigo;
             });
 
