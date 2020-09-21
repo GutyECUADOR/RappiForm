@@ -88,7 +88,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="text" v-model='nuevoProducto.sku' class="form-control text-center input-sm">
+                                        <input type="text" v-model='nuevoProducto.sku' class="form-control text-center input-sm" readonly>
                                     </td>
                                     <td>
                                         <select id="marcas" v-model='nuevoProducto.marca' class="form-control input-sm">
@@ -132,15 +132,20 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         </select>
                                     </td>
                                     <td>
-                                        <select id="tiposVariantes" v-model='nuevoProducto.tipoVariante' class="form-control input-sm">
+                                        <select id="tiposVariantes" v-model='nuevoProducto.tipoVariante'  @change="getTiposVariante($event)" class="form-control input-sm">
                                             <option value="">Seleccione por favor</option>
-                                            <option v-for="variante in tiposVariantes" :value="variante.CODIGO">
+                                            <option v-for="variante in tiposVariantes" :value="variante.NOMBRE">
                                             {{variante.NOMBRE}}
                                             </option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" v-model='nuevoProducto.valorVariante' class="form-control text-center input-sm">
+                                        <select id="tiposVariantes" v-model='nuevoProducto.valorVariante' class="form-control input-sm">
+                                            <option value="">Seleccione por favor</option>
+                                            <option v-for="variante in valoresVariantes" :value="variante.NOMBRE">
+                                            {{variante.NOMBRE}}
+                                            </option>
+                                        </select>
                                     </td>
                                    
                                 </tr>
@@ -174,7 +179,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                             <table class="table table-bordered tableExtras">
                                 <thead>
                                     <tr>
-                                    <th style="min-width: 170px;" class="text-center">Codigo Winfenix</th>
+                                    <th style="min-width: 100px;" class="text-center">Codigo Winfenix</th>
                                     <th style="min-width: 200px;" class="text-center">Nombre del Articulo</th>
                                     <th style="min-width: 110px;"  class="text-center">Ref. Aliado</th>
                                     <th style="min-width: 110px;" class="text-center">Descripcion Rappi</th>
@@ -217,7 +222,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" v-model='producto.sku' class="form-control text-center input-sm">
+                                            <input type="text" v-model='producto.sku' class="form-control text-center input-sm" readonly>
                                         </td>
                                         <td>
                                             <select id="marcas" v-model='producto.marca' class="form-control input-sm">
@@ -263,13 +268,18 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         <td>
                                             <select id="tiposVariantes" v-model='producto.tipoVariante' class="form-control input-sm">
                                                 <option value="">Seleccione por favor</option>
-                                                <option v-for="variante in tiposVariantes" :value="variante.CODIGO">
+                                                <option v-for="variante in tiposVariantes" :value="variante.NOMBRE">
                                                 {{variante.NOMBRE}}
                                                 </option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" v-model='producto.valorVariante' class="form-control text-center input-sm">
+                                            <select id="tiposVariantes" v-model='producto.valorVariante' class="form-control input-sm">
+                                                <option value="">Seleccione por favor</option>
+                                                <option v-for="variante in valoresVariantes" :value="variante.NOMBRE">
+                                                {{variante.NOMBRE}}
+                                                </option>
+                                            </select>
                                         </td>
                                         <td>
                                             <button type="button" @click="deleteProductToList(producto)" class="btn btn-danger btn-sm btn-block" ><span class="glyphicon glyphicon-trash"></span></button>
@@ -290,7 +300,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                 
 
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary btn-lg" id="btnGuardar"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Registrar</button>
+                        <button type="button" class="btn btn-primary btn-lg" @click="saveProducts"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Registrar</button>
                     </div>
 
                     <div class="btn-group" role="group">

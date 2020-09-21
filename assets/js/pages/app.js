@@ -11,8 +11,8 @@ const app = new Vue({
       categorias2: [],
       categorias3: [],
       categorias4: [],
-      tiposVariantes: []
-     
+      tiposVariantes: [],
+      valoresVariantes: []
     },
     methods:{
         init(){
@@ -34,7 +34,6 @@ const app = new Vue({
                 console.error(error);
             });  
         },
-
         buscarProducto(){
             let codigo = document.querySelector('#inputNuevoCodProducto').value;
             let busqueda = JSON.stringify({codigo});
@@ -48,6 +47,10 @@ const app = new Vue({
                         let producto = result.data;
                         this.nuevoProducto.codigo = producto.CODIGO;
                         this.nuevoProducto.nombre = producto.NOMBRE;
+                        this.nuevoProducto.descripcion = producto.DESCRIPCION;
+                        this.nuevoProducto.sku = producto.SKU;
+                        this.nuevoProducto.precio = producto.PRECIO;
+                        this.nuevoProducto.marca = producto.CODIGOMARCA;
                     }
             }).catch( error => {
                 console.error(error);
@@ -74,16 +77,49 @@ const app = new Vue({
 
             this.productos.splice(index, 1);
         },
-        showModalDetail(producto){
-            console.log(producto);
-            this.producto_activo = producto.CODIGO;
-
-            $('#producto_nombre').val(producto.NOMBRE);
-            $('#producto_etiquetas').val(producto.ETIQUETAS);
-            $('#producto_grupos').val(producto.GRUPO);
-            tinymce.get('producto_descripcion').setContent(producto.DESCRIPCION);
-            $('#modal_productoDetail').modal('show');
+        getTiposVariante(event){
+           let tipo = event.target.value.trim();
+           let busqueda = JSON.stringify({tipo});
+           console.log(busqueda)
+           fetch(`./api/index.php/api.php?action=getValoresVariantes&busqueda=${ busqueda }`)
+                .then( response => {
+                return response.json();
+                })
+                .then( result => {
+                console.log('Valores Variantes', result.data);
+                this.valoresVariantes = result.data
+            }).catch( error => {
+                console.error(error);
+            });  
         },
+        saveProducts() {
+            if (this.productos.length <= 0) {
+              alert('Agregue productos a la lista, antes de registrar.');
+              return
+            }
+  
+            console.log('Productos', this.productos);
+  
+            let formData = new FormData();
+            formData.append('productos', JSON.stringify(this.productos));
+  
+            fetch(`./api/index.php/api.php?action=postAddProductos`, {
+              method: 'POST',
+              body: formData
+            })
+              .then(response => {
+                return response.json();
+              })
+              .then(data => {
+                console.log('Productos registrados', data);
+                if (data.status == 'success') {
+                  this.productos = [];
+                }
+                alert(data.mensaje)
+              }).catch(error => {
+                console.error(error);
+              });
+          }
       
     },
     mounted(){

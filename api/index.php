@@ -21,12 +21,16 @@ class ajax{
       return $this->ajaxController->getInfoProducto($busqueda);
     }
 
-    public function getAllProductos_Shopy_Master() {
-      return $this->ajaxController->getAllProductos_Shopy_Master();
+    public function getValoresVariantes($busqueda) {
+      return $this->ajaxController->getValoresVariantes($busqueda);
     }
 
-    public function postActualizaProducto_Shopy_Master($producto) {
-      return $this->ajaxController->postActualizaProducto_Shopy_Master($producto);
+    public function getAllProductos_Rappi() {
+      return $this->ajaxController->getAllProductos_Rappi();
+    }
+
+    public function postAddProductos($productos) {
+      return $this->ajaxController->postAddProductos($productos);
     }
 
 }
@@ -68,10 +72,25 @@ class ajax{
 
       break;
 
-      case 'getAllProductos_Shopy_Master':
+      case 'getValoresVariantes':
+
+        if (isset($_GET['busqueda']) ) {
+          $busqueda = json_decode($_GET['busqueda']);
+          $respuesta = $ajax->getValoresVariantes($busqueda);
+          $rawdata = array('status' => 'OK', 'mensaje' => 'respuesta correcta', 'busqueda'=> $busqueda, 'data' => $respuesta);
+        }else{
+          $rawdata = array('status' => 'ERROR', 'mensaje' => 'No se ha indicado parámetros.');
+        }
+        
+      
+        echo json_encode($rawdata);
+
+      break;
+
+      case 'getAllProductos_Rappi':
         if (isset($_GET['codigo'])) {
           $codigo = $_GET['codigo'];
-          $respuesta = $ajax->getAllProductos_Shopy_Master();
+          $respuesta = $ajax->getAllProductos_Rappi();
           $rawdata = array('status' => 'success', 'mensaje' => 'respuesta correcta', 'productos' => $respuesta);
         }else{
           $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
@@ -81,11 +100,11 @@ class ajax{
 
       break;
 
-      case 'postActualizaProducto_Shopy_Master':
-        if (isset($_POST['producto'])) {
-          $producto = json_decode($_POST['producto']);
-          $respuesta = $ajax->postActualizaProducto_Shopy_Master($producto);
-          $rawdata = array('status' => 'success', 'mensaje' => 'Producto Actualizado Correctamente', 'producto' => $producto, 'respuesta' => $respuesta);
+      case 'postAddProductos':
+        if (isset($_POST['productos'])) {
+          $productos = json_decode($_POST['productos']);
+          $respuesta = $ajax->postAddProductos($productos);
+          $rawdata = array('status' => 'success', 'mensaje' => 'Productos Agregados Correctamente', 'respuesta' => $respuesta);
         }else{
           $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
         }

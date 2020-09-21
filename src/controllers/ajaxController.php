@@ -33,22 +33,37 @@ class ajaxController  {
                     'tiposVariantes'=> $tiposVariantes);
     }
 
-     /* Informacion del Producto */
-     public function getInfoProducto($codigoProducto){
-        $producto = $this->ajaxModel->getInfoProducto($codigoProducto);
+    /* Informacion del Producto */
+     public function getInfoProducto($busqueda){
+        $producto = $this->ajaxModel->getInfoProducto($busqueda);
         return $producto;
+    }
+
+    /* Informacion del Producto */
+    public function getValoresVariantes($busqueda){
+        switch ($busqueda->tipo) {
+           case 'COLOR':
+                $resultset = $this->ajaxModel->getColores();
+                break;
+           
+           default:
+                $resultset = $this->ajaxModel->getTallas();
+                break;
+        }
+        return $resultset;
     }
 
 
     /* Retorna la respuesta del modelo ajax*/
-    public function getAllProductos_Shopy_Master(){
-        $response = $this->ajaxModel->getAllProductos_Shopy_Master();
+    public function getAllProductos_Rappi(){
+        $response = $this->ajaxModel->getAllProductos_Rappi();
         return $response;
     }
 
     /* Retorna la respuesta del modelo ajax*/
-    public function postActualizaProducto_Shopy_Master($producto){
-        $response = $this->ajaxModel->postActualizaProducto_Shopy_Master($producto);
+    public function postAddProductos($productos){
+        $response = array('status' => 'error', 'mensaje'=> 'No se ha podido registrar los items. Error en base de datos');
+        $response = $this->ajaxModel->postAddProductos($productos);
         return $response;
     }
 
