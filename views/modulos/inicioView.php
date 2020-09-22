@@ -52,6 +52,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                 <th style="min-width: 110px;" class="text-center">Categoria4</th>
                                 <th style="min-width: 120px;" class="text-center">Tipo Variante</th>
                                 <th style="min-width: 120px;" class="text-center">Valor de la Variante</th>
+                                <th style="min-width: 120px;" class="text-center">Imagen</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -146,6 +147,16 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                             {{variante.NOMBRE}}
                                             </option>
                                         </select>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                        <input type="text" id='imagen' class="form-control text-center input-sm" readonly>
+                                        <span class="input-group-btn">
+                                            <button  class="btn btn-default input-sm" type="button" data-toggle="modal" data-target="#modalAddImagenDetail">
+                                                <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        </div>
                                     </td>
                                    
                                 </tr>
@@ -319,6 +330,9 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
 
         <!-- Modal Info sesion -->
         <?php require_once 'modals/modalAddExtraDetail.php'?>
+
+         <!-- Modal Info sesion -->
+         <?php require_once 'modals/modalAddImagenDetail.php'?>
          
      
     </div>

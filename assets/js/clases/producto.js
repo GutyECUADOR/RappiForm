@@ -13,7 +13,7 @@ class Producto {
         this.categoria2 = '';
         this.categoria3 = '';
         this.categoria4 = '';
-        this.imagen = ''
+        this.imagen = 'http://'
         this.tipoVariante = '';
         this.valorVariante = '';
     }

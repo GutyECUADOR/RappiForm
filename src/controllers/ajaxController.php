@@ -62,7 +62,7 @@ class ajaxController  {
 
     /* Retorna la respuesta del modelo ajax*/
     public function postAddProductos($productos){
-        $response = array('status' => 'error', 'mensaje'=> 'No se ha podido registrar los items. Error en base de datos');
+       
         $response = $this->ajaxModel->postAddProductos($productos);
         return $response;
     }

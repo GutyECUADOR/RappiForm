@@ -103,8 +103,8 @@ class ajax{
       case 'postAddProductos':
         if (isset($_POST['productos'])) {
           $productos = json_decode($_POST['productos']);
-          $respuesta = $ajax->postAddProductos($productos);
-          $rawdata = array('status' => 'success', 'mensaje' => 'Productos Agregados Correctamente', 'respuesta' => $respuesta);
+          $rawdata = $ajax->postAddProductos($productos);
+
         }else{
           $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
         }

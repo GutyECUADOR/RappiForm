@@ -216,9 +216,10 @@ class ajaxModel extends conexion  {
            
             }
             
-
+           
             $commit = $this->instancia->commit();
-            return array('commit' => $commit );
+            $response = array('status' => 'success', 'mensaje'=> 'Registro correcto en la base de datos.', 'commit' => $commit );
+            return $response;
             
         }catch(\PDOException $exception){
             $this->instancia->rollBack();

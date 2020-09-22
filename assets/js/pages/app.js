@@ -57,17 +57,28 @@ const app = new Vue({
             });  
         },
         addProductToList(){
-            let existeInArray = this.productos.findIndex( (productoEnArray) => {
-                return productoEnArray.codigo === this.nuevoProducto.codigo;
-            });
+            console.log(this.nuevoProducto)
+            if (this.nuevoProducto.refaliado && this.nuevoProducto.marca && this.nuevoProducto.categoria1
+                && this.nuevoProducto.categoria2 && this.nuevoProducto.categoria3 && this.nuevoProducto.categoria4
+                && this.nuevoProducto.imagen && this.nuevoProducto.tipoVariante && this.nuevoProducto.valorVariante 
+                ) {
+                    let existeInArray = this.productos.findIndex( (productoEnArray) => {
+                        return productoEnArray.codigo === this.nuevoProducto.codigo;
+                    });
+        
+                    if (existeInArray === -1) { 
+                        this.productos.push(this.nuevoProducto);
+                        this.nuevoProducto = new Producto();
+                        document.querySelector('#inputNuevoCodProducto').value = '';
+                    } else {
+                        alert('El item ' + this.nuevoProducto.codigo + ' ya existe en la lista');
+                    }
+                   
+                }else{
+                    alert('El producto esta incompleto. Revise que se haya ingresado toda la informacion.');
+                }
 
-            if (existeInArray === -1) { 
-                this.productos.push(this.nuevoProducto);
-                this.nuevoProducto = new Producto();
-            } else {
-                alert('El item ' + this.nuevoProducto.codigo + ' ya existe en la lista');
-            }
-            console.log(this.productos)
+           
         },
         deleteProductToList(producto) {
 
