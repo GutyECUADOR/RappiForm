@@ -22,6 +22,7 @@ const app = new Vue({
                 })
                 .then( result => {
                 console.log('InitForm', result.data);
+                this.getAllProductos();
                 this.aliados = result.data.aliados;
                 this.marcas = result.data.marcas;
                 this.categorias1 = result.data.categorias1;
@@ -31,6 +32,18 @@ const app = new Vue({
                 this.categorias4 = result.data.categorias4;
                 this.tiposVariantes = result.data.tiposVariantes
             }).catch( error => {
+                console.error(error);
+            });  
+        },
+        getAllProductos(){
+            fetch(`./api/index.php/api.php?action=getAllProductos_Rappi`)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log('Productos', data);
+                this.productos = data.productos;  
+            }).catch(function(error) {
                 console.error(error);
             });  
         },

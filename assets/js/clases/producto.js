@@ -6,6 +6,7 @@ class Producto {
         this.codigo = '';
         this.nombre = '';
         this.descripcion = '';
+        this.precio = 0,
         this.refaliado = '';
         this.sku = '';
         this.marca = '';

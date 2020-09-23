@@ -94,7 +94,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                     <td>
                                         <select id="marcas" v-model='nuevoProducto.marca' class="form-control input-sm">
                                             <option value="">Seleccione por favor</option>
-                                            <option v-for="marca in marcas" :value="marca.CODIGO">
+                                            <option v-for="marca in marcas" :value="marca.NOMBRE">
                                             {{marca.NOMBRE}}
                                             </option>
                                         </select>
@@ -102,7 +102,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                     <td>
                                         <select id="categoria1" v-model='nuevoProducto.categoria1' class="form-control input-sm">
                                             <option value="">Seleccione por favor</option>
-                                            <option v-for="categoria in categorias1" :value="categoria.CODIGO">
+                                            <option v-for="categoria in categorias1" :value="categoria.NOMBRE">
                                                 {{categoria.NOMBRE}}
                                             </option>
                                         </select>
@@ -111,7 +111,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                     <td>
                                         <select id="categoria2" v-model='nuevoProducto.categoria2' class="form-control input-sm">
                                             <option value="">Seleccione por favor</option>
-                                            <option v-for="categoria in categorias2" :value="categoria.CODIGO">
+                                            <option v-for="categoria in categorias2" :value="categoria.NOMBRE">
                                                 {{categoria.NOMBRE}}
                                             </option>
                                         </select>
@@ -119,7 +119,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                     <td>
                                         <select id="categoria3" v-model='nuevoProducto.categoria3' class="form-control input-sm">
                                             <option value="">Seleccione por favor</option>
-                                            <option v-for="categoria in categorias3" :value="categoria.CODIGO">
+                                            <option v-for="categoria in categorias3" :value="categoria.NOMBRE">
                                                 {{categoria.NOMBRE}}
                                             </option>
                                         </select>
@@ -127,7 +127,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                     <td>
                                         <select id="categoria4" v-model='nuevoProducto.categoria4' class="form-control input-sm">
                                             <option value="">Seleccione por favor</option>
-                                            <option v-for="categoria in categorias4" :value="categoria.CODIGO">
+                                            <option v-for="categoria in categorias4" :value="categoria.NOMBRE">
                                                 {{categoria.NOMBRE}}
                                             </option>
                                         </select>
@@ -238,7 +238,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         <td>
                                             <select id="marcas" v-model='producto.marca' class="form-control input-sm">
                                                 <option value="">Seleccione por favor</option>
-                                                <option v-for="marca in marcas" :value="marca.CODIGO">
+                                                <option v-for="marca in marcas" :value="marca.NOMBRE">
                                                 {{marca.NOMBRE}}
                                                 </option>
                                             </select>
@@ -246,7 +246,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         <td>
                                             <select id="categoria1" v-model='producto.categoria1' class="form-control input-sm">
                                                 <option value="">Seleccione por favor</option>
-                                                <option v-for="categoria in categorias1" :value="categoria.CODIGO">
+                                                <option v-for="categoria in categorias1" :value="categoria.NOMBRE">
                                                     {{categoria.NOMBRE}}
                                                 </option>
                                             </select>
@@ -255,7 +255,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         <td>
                                             <select id="categoria2" v-model='producto.categoria2' class="form-control input-sm">
                                                 <option value="">Seleccione por favor</option>
-                                                <option v-for="categoria in categorias2" :value="categoria.CODIGO">
+                                                <option v-for="categoria in categorias2" :value="categoria.NOMBRE">
                                                     {{categoria.NOMBRE}}
                                                 </option>
                                             </select>
@@ -263,7 +263,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         <td>
                                             <select id="categoria3" v-model='producto.categoria3' class="form-control input-sm">
                                                 <option value="">Seleccione por favor</option>
-                                                <option v-for="categoria in categorias3" :value="categoria.CODIGO">
+                                                <option v-for="categoria in categorias3" :value="categoria.NOMBRE">
                                                     {{categoria.NOMBRE}}
                                                 </option>
                                             </select>
@@ -271,13 +271,13 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         <td>
                                             <select id="categoria4" v-model='producto.categoria4' class="form-control input-sm">
                                                 <option value="">Seleccione por favor</option>
-                                                <option v-for="categoria in categorias4" :value="categoria.CODIGO">
+                                                <option v-for="categoria in categorias4" :value="categoria.NOMBRE">
                                                     {{categoria.NOMBRE}}
                                                 </option>
                                             </select>
                                         </td>
                                         <td>
-                                            <select id="tiposVariantes" v-model='producto.tipoVariante' class="form-control input-sm">
+                                            <select v-model='producto.tipoVariante' class="form-control input-sm">
                                                 <option value="">Seleccione por favor</option>
                                                 <option v-for="variante in tiposVariantes" :value="variante.NOMBRE">
                                                 {{variante.NOMBRE}}
@@ -285,7 +285,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                             </select>
                                         </td>
                                         <td>
-                                            <select id="tiposVariantes" v-model='producto.valorVariante' class="form-control input-sm">
+                                            <select v-model='producto.valorVariante' class="form-control input-sm">
                                                 <option value="">Seleccione por favor</option>
                                                 <option v-for="variante in valoresVariantes" :value="variante.NOMBRE">
                                                 {{variante.NOMBRE}}

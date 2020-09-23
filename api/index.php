@@ -88,14 +88,9 @@ class ajax{
       break;
 
       case 'getAllProductos_Rappi':
-        if (isset($_GET['codigo'])) {
-          $codigo = $_GET['codigo'];
           $respuesta = $ajax->getAllProductos_Rappi();
           $rawdata = array('status' => 'success', 'mensaje' => 'respuesta correcta', 'productos' => $respuesta);
-        }else{
-          $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
-        }
-        
+         
         echo json_encode($rawdata);
 
       break;

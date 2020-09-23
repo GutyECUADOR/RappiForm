@@ -10,7 +10,11 @@ class ajaxModel extends conexion  {
 
     public function getAliados(){
         $query = "
-            SELECT * FROM KAO_wssp.dbo.INV_ECOMM_EMPRESA
+        SELECT 
+            CODIGO,
+            RTRIM(CODIGO_ECCOMERCE) as CODIGO_ECCOMERCE,
+            NOMBRE
+        FROM KAO_wssp.dbo.INV_ECOMM_EMPRESA
         ";
         
         $stmt = $this->instancia->prepare($query); 
@@ -53,7 +57,6 @@ class ajaxModel extends conexion  {
         return $resulset;  
     }
 
-
     public function getColores(){
         $query = "
             SELECT CODIGO, NOMBRE FROM INV_COLORES
@@ -68,7 +71,6 @@ class ajaxModel extends conexion  {
             }
         return $resulset;  
     }
-
 
     public function getCategorias($categoria='1'){
         $query = "
@@ -89,7 +91,11 @@ class ajaxModel extends conexion  {
 
     public function getTiposVariantes(){
         $query = "
-            SELECT * FROM KAO_wssp.dbo.INV_ECOMM_TIPOS_VARIANTES
+        SELECT 
+            CODIGO,
+            RTRIM(NOMBRE) as NOMBRE
+        FROM KAO_wssp.dbo.INV_ECOMM_TIPOS_VARIANTES
+            
         ";
         
         $stmt = $this->instancia->prepare($query); 
@@ -146,9 +152,24 @@ class ajaxModel extends conexion  {
     }
 
     public function getAllProductos_Rappi() {
-
+        /* Los nombres de los alias deben conincidir con el modelo del producto en VUE para que se auto bindeen */
         $query = " 
-            SELECT * FROM KAO_wssp.dbo.rappi_products_parcial
+        SELECT  
+            refAliado as refaliado,
+            codigo_winfenix as codigo,
+            Nombre as nombre,
+            Descripcion as descripcion,
+            Marca as marca,
+            sku,
+            Categoria_Producto_1 as categoria1,
+            Categoria_Producto_2 as categoria2,
+            Categoria_Producto_3 as categoria3,
+            Categoria_Producto_4 as categoria4,
+            Imagen_de_Producto as imagen,
+            Categoria_Combinacion as tipoVariante,
+            Nombre_Combinacion as valorVariante
+        FROM 
+            KAO_wssp.dbo.rappi_products_parcial
         "; 
 
         try{
