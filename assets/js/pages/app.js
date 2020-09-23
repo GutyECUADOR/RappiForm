@@ -75,20 +75,31 @@ const app = new Vue({
                 && this.nuevoProducto.categoria2 && this.nuevoProducto.categoria3 && this.nuevoProducto.categoria4
                 && this.nuevoProducto.imagen && this.nuevoProducto.tipoVariante && this.nuevoProducto.valorVariante 
                 ) {
-                    let existeInArray = this.productos.findIndex( (productoEnArray) => {
-                        return productoEnArray.codigo === this.nuevoProducto.codigo;
-                    });
+                   
+                    let formData = new FormData();
+                    formData.append('producto', JSON.stringify(this.nuevoProducto));
         
-                    if (existeInArray === -1) { 
-                        this.productos.push(this.nuevoProducto);
+                    fetch(`./api/index.php/api.php?action=postAddProducto`, {
+                    method: 'POST',
+                    body: formData
+                    })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Producto registrados', data);
+                        if (data.status == 'success') {
                         this.nuevoProducto = new Producto();
                         document.querySelector('#inputNuevoCodProducto').value = '';
-                    } else {
-                        alert('El item ' + this.nuevoProducto.codigo + ' ya existe en la lista');
-                    }
+                        this.getAllProductos();
+                        }
+                        alert(data.mensaje)
+                    }).catch(error => {
+                        console.error(error);
+                    });
                    
                 }else{
-                    alert('El producto esta incompleto. Revise que se haya ingresado toda la informacion.');
+                    alert('El producto esta incompleto. Revise que se ha ingresado toda la informacion.');
                 }
 
            
@@ -122,7 +133,7 @@ const app = new Vue({
               return
             }
   
-            console.log('Productos', this.productos);
+            console.log('Producto', this.productos);
   
             let formData = new FormData();
             formData.append('productos', JSON.stringify(this.productos));

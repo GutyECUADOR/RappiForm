@@ -189,6 +189,59 @@ class ajaxModel extends conexion  {
    
     }
 
+    public function postAddProducto($producto) {
+
+        try{
+
+            $this->instancia->beginTransaction();
+         
+                $query = " 
+                    INSERT INTO KAO_wssp.dbo.rappi_products_parcial 
+                                (refAliado, 
+                                codigo_winfenix, 
+                                sku, 
+                                Nombre, 
+                                Descripcion, 
+                                Precio,
+                                Marca, 
+                                Categoria_Producto_1, 
+                                Categoria_Producto_2, 
+                                Categoria_Producto_3, 
+                                Categoria_Producto_4, 
+                                Imagen_de_Producto, 
+                                Categoria_Combinacion, 
+                                Nombre_Combinacion)
+                    VALUES (?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                "; 
+
+                $stmt = $this->instancia->prepare($query); 
+                $stmt->bindParam(1, $producto->refaliado); 
+                $stmt->bindParam(2, $producto->codigo); 
+                $stmt->bindParam(3, $producto->sku); 
+                $stmt->bindParam(4, $producto->nombre); 
+                $stmt->bindParam(5, $producto->descripcion); 
+                $stmt->bindParam(6, $producto->precio); 
+                $stmt->bindParam(7, $producto->marca);
+                $stmt->bindParam(8, $producto->categoria1);  
+                $stmt->bindParam(9, $producto->categoria2);  
+                $stmt->bindParam(10, $producto->categoria3);  
+                $stmt->bindParam(11, $producto->categoria4);  
+                $stmt->bindParam(12, $producto->imagen); 
+                $stmt->bindParam(13, $producto->tipoVariante); 
+                $stmt->bindParam(14, $producto->valorVariante);  
+                $stmt->execute();
+           
+            
+            $commit = $this->instancia->commit();
+            $response = array('status' => 'success', 'mensaje'=> 'Registro correcto en la base de datos.', 'commit' => $commit );
+            return $response;
+            
+        }catch(\PDOException $exception){
+            $this->instancia->rollBack();
+            return array('status' => 'error', 'mensaje' => $exception->getMessage() );
+        }
+   
+    }
    
     public function postAddProductos($productos) {
 

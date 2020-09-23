@@ -29,6 +29,10 @@ class ajax{
       return $this->ajaxController->getAllProductos_Rappi();
     }
 
+    public function postAddProducto($producto) {
+      return $this->ajaxController->postAddProducto($producto);
+    }
+
     public function postAddProductos($productos) {
       return $this->ajaxController->postAddProductos($productos);
     }
@@ -91,6 +95,19 @@ class ajax{
           $respuesta = $ajax->getAllProductos_Rappi();
           $rawdata = array('status' => 'success', 'mensaje' => 'respuesta correcta', 'productos' => $respuesta);
          
+        echo json_encode($rawdata);
+
+      break;
+
+      case 'postAddProducto':
+        if (isset($_POST['producto'])) {
+          $producto = json_decode($_POST['producto']);
+          $rawdata = $ajax->postAddProducto($producto);
+
+        }else{
+          $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
+        }
+        
         echo json_encode($rawdata);
 
       break;

@@ -79,14 +79,9 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         </select>
                                     </td>
                                     <td>
-                                        <div class="input-group">
-                                        <input type="text" id='descripcion' class="form-control text-center input-sm" readonly>
-                                        <span class="input-group-btn">
-                                            <button id="btnDetallePromo" class="btn btn-default input-sm" type="button" data-toggle="modal" data-target="#modalAddExtraDetail">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                            </button>
-                                        </span>
-                                        </div>
+                                        <button id="btnDetallePromo" class="btn btn-default input-sm btn-block" type="button" data-toggle="modal" data-target="#modalAddExtraDetail">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
                                     </td>
                                     <td>
                                         <input type="text" v-model='nuevoProducto.sku' class="form-control text-center input-sm" readonly>
@@ -165,7 +160,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                 
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-primary btn-sm" @click='addProductToList'><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar item</button>
+                        <button type="button" class="btn btn-primary btn-sm" @click='addProductToList'><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Guardar item</button>
                         </div>
                     </div>
                 </div>
@@ -223,14 +218,9 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                             </select>
                                         </td>
                                         <td>
-                                            <div class="input-group">
-                                            <input type="text" id='descripcion' class="form-control text-center input-sm" readonly>
-                                            <span class="input-group-btn">
-                                                <button id="btnDetallePromo" class="btn btn-default input-sm" type="button" data-toggle="modal" data-target="#modalAddExtraDetail">
-                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                </button>
-                                            </span>
-                                            </div>
+                                            <button class="btn btn-default input-sm btn-block" type="button" data-toggle="modal" data-target="#modalAddExtraDetail">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
                                         </td>
                                         <td>
                                             <input type="text" v-model='producto.sku' class="form-control text-center input-sm" readonly>
@@ -304,23 +294,6 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                 </div>
             </div>
         </div>
-
-        <div class="row extraButton">
-            <div class="col-md-12">
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                
-
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary btn-lg" @click="saveProducts"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Registrar</button>
-                    </div>
-
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-danger btn-lg" id="btnCancel"><span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span> Cancelar</button>
-                    </div>
-               
-                </div>
-            </div>
-        </div>    
 
         <!-- Modal Info sesion -->
         <?php require_once 'modals/modal_info_session.php'?>
