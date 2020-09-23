@@ -67,6 +67,12 @@ class ajaxController  {
         return $response;
     }
 
+    /* Retorna la respuesta del modelo ajax*/
+    public function postUpdateProducto($producto){
+        $response = $this->ajaxModel->postUpdateProducto($producto);
+        return $response;
+    }
+
 
     /* Retorna la respuesta del modelo ajax*/
     public function postAddProductos($productos){

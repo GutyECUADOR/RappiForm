@@ -33,6 +33,10 @@ class ajax{
       return $this->ajaxController->postAddProducto($producto);
     }
 
+    public function postUpdateProducto($producto) {
+      return $this->ajaxController->postUpdateProducto($producto);
+    }
+
     public function postAddProductos($productos) {
       return $this->ajaxController->postAddProductos($productos);
     }
@@ -103,6 +107,19 @@ class ajax{
         if (isset($_POST['producto'])) {
           $producto = json_decode($_POST['producto']);
           $rawdata = $ajax->postAddProducto($producto);
+
+        }else{
+          $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');
+        }
+        
+        echo json_encode($rawdata);
+
+      break;
+
+      case 'postUpdateProducto':
+        if (isset($_POST['producto'])) {
+          $producto = json_decode($_POST['producto']);
+          $rawdata = $ajax->postUpdateProducto($producto);
 
         }else{
           $rawdata = array('status' => 'error', 'mensaje' => 'No se ha indicado parámetros.');

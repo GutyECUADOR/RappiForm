@@ -160,7 +160,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                 
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-primary btn-sm" @click='addProductToList'><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Guardar item</button>
+                        <button type="button" class="btn btn-primary btn-sm" @click='saveProducto'><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Guardar item</button>
                         </div>
                     </div>
                 </div>
@@ -187,17 +187,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                     <tr>
                                     <th style="min-width: 100px;" class="text-center">Codigo Winfenix</th>
                                     <th style="min-width: 200px;" class="text-center">Nombre del Articulo</th>
-                                    <th style="min-width: 110px;"  class="text-center">Ref. Aliado</th>
-                                    <th style="min-width: 110px;" class="text-center">Descripcion Rappi</th>
-                                    <th style="min-width: 130px;" class="text-center">SKU</th>
-                                    <th style="min-width: 100px;" class="text-center">Marca</th>
-                                    <th style="min-width: 110px;" class="text-center">Categoria1</th>
-                                    <th style="min-width: 110px;" class="text-center">Categoria2</th>
-                                    <th style="min-width: 110px;" class="text-center">Categoria3</th>
-                                    <th style="min-width: 110px;" class="text-center">Categoria4</th>
-                                    <th style="min-width: 120px;" class="text-center">Tipo Variante</th>
-                                    <th style="min-width: 120px;" class="text-center">Valor de la Variante</th>
-                                    <th style="min-width: 50px;" class="text-center">Eliminar</th>
+                                    <th style="min-width: 50px;" class="text-center">Editar</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tablaProductos">
@@ -210,80 +200,9 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                             <input type="text" v-model='producto.nombre' class="form-control text-center input-sm" readonly>
                                         </td>
                                         <td>
-                                            <select id="aliados" v-model='producto.refaliado' class="form-control input-sm">
-                                                <option value="">Seleccione por favor</option>
-                                                <option v-for="aliado in aliados" :value="aliado.CODIGO_ECCOMERCE">
-                                                {{aliado.NOMBRE}}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-default input-sm btn-block" type="button" data-toggle="modal" data-target="#modalAddExtraDetail">
+                                            <button class="btn btn-default input-sm btn-block" @click="editarProducto(producto)" type="button" data-toggle="modal" data-target="#modalEditarProducto">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </button>
-                                        </td>
-                                        <td>
-                                            <input type="text" v-model='producto.sku' class="form-control text-center input-sm" readonly>
-                                        </td>
-                                        <td>
-                                            <select id="marcas" v-model='producto.marca' class="form-control input-sm">
-                                                <option value="">Seleccione por favor</option>
-                                                <option v-for="marca in marcas" :value="marca.NOMBRE">
-                                                {{marca.NOMBRE}}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select id="categoria1" v-model='producto.categoria1' class="form-control input-sm">
-                                                <option value="">Seleccione por favor</option>
-                                                <option v-for="categoria in categorias1" :value="categoria.NOMBRE">
-                                                    {{categoria.NOMBRE}}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        
-                                        <td>
-                                            <select id="categoria2" v-model='producto.categoria2' class="form-control input-sm">
-                                                <option value="">Seleccione por favor</option>
-                                                <option v-for="categoria in categorias2" :value="categoria.NOMBRE">
-                                                    {{categoria.NOMBRE}}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select id="categoria3" v-model='producto.categoria3' class="form-control input-sm">
-                                                <option value="">Seleccione por favor</option>
-                                                <option v-for="categoria in categorias3" :value="categoria.NOMBRE">
-                                                    {{categoria.NOMBRE}}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select id="categoria4" v-model='producto.categoria4' class="form-control input-sm">
-                                                <option value="">Seleccione por favor</option>
-                                                <option v-for="categoria in categorias4" :value="categoria.NOMBRE">
-                                                    {{categoria.NOMBRE}}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select v-model='producto.tipoVariante' class="form-control input-sm">
-                                                <option value="">Seleccione por favor</option>
-                                                <option v-for="variante in tiposVariantes" :value="variante.NOMBRE">
-                                                {{variante.NOMBRE}}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select v-model='producto.valorVariante' class="form-control input-sm">
-                                                <option value="">Seleccione por favor</option>
-                                                <option v-for="variante in valoresVariantes" :value="variante.NOMBRE">
-                                                {{variante.NOMBRE}}
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <button type="button" @click="deleteProductToList(producto)" class="btn btn-danger btn-sm btn-block" ><span class="glyphicon glyphicon-trash"></span></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -300,6 +219,9 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
 
         <!-- Modal Info sesion -->
         <?php require_once 'modals/modal_producto.php'?>
+
+        <!-- Modal Info sesion -->
+        <?php require_once 'modals/modal_editar_producto.php'?>
 
         <!-- Modal Info sesion -->
         <?php require_once 'modals/modalAddExtraDetail.php'?>

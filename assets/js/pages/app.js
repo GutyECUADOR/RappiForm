@@ -5,6 +5,7 @@ const app = new Vue({
       titulo: 'Productos de Rappi KAO',
       productos: [],
       nuevoProducto: new Producto(),
+      productoEditado: new Producto(),
       aliados: [],
       marcas: [],
       categorias1: [],
@@ -69,7 +70,7 @@ const app = new Vue({
                 console.error(error);
             });  
         },
-        addProductToList(){
+        saveProducto(){
             console.log(this.nuevoProducto)
             if (this.nuevoProducto.refaliado && this.nuevoProducto.marca && this.nuevoProducto.categoria1
                 && this.nuevoProducto.categoria2 && this.nuevoProducto.categoria3 && this.nuevoProducto.categoria4
@@ -103,6 +104,31 @@ const app = new Vue({
                 }
 
            
+        },
+        editarProducto(producto){
+            this.productoEditado = producto;
+        },
+        updateProducto(){
+            let formData = new FormData();
+            formData.append('producto', JSON.stringify(this.productoEditado));
+
+            fetch(`./api/index.php/api.php?action=postUpdateProducto`, {
+            method: 'POST',
+            body: formData
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log('Producto actualizados', data);
+                if (data.status == 'success') {
+                $('#modalEditarProducto').modal('hide');
+                this.getAllProductos();
+                }
+                alert(data.mensaje)
+            }).catch(error => {
+                console.error(error);
+            });
         },
         deleteProductToList(producto) {
 
@@ -154,7 +180,7 @@ const app = new Vue({
               }).catch(error => {
                 console.error(error);
               });
-          }
+        }
       
     },
     mounted(){

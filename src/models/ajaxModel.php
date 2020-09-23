@@ -243,6 +243,60 @@ class ajaxModel extends conexion  {
    
     }
    
+    public function postUpdateProducto($producto) {
+
+        try{
+
+            $this->instancia->beginTransaction();
+         
+                $query = " 
+                    UPDATE KAO_wssp.dbo.rappi_products_parcial 
+                            SET
+                                refAliado = :refAliado, 
+                                sku = :sku, 
+                                Nombre = :Nombre, 
+                                Descripcion = :Descripcion, 
+                                Precio = :Precio,
+                                Marca = :Marca, 
+                                Categoria_Producto_1 = :Categoria_Producto_1, 
+                                Categoria_Producto_2 = :Categoria_Producto_2, 
+                                Categoria_Producto_3 = :Categoria_Producto_3, 
+                                Categoria_Producto_4 = :Categoria_Producto_4, 
+                                Imagen_de_Producto = :Imagen_de_Producto, 
+                                Categoria_Combinacion = :Categoria_Combinacion, 
+                                Nombre_Combinacion = :Nombre_Combinacion
+                    WHERE codigo_winfenix = :codigo_winfenix
+                "; 
+
+                $stmt = $this->instancia->prepare($query); 
+                $stmt->bindParam(':refAliado', $producto->refaliado); 
+                $stmt->bindParam(':sku', $producto->sku); 
+                $stmt->bindParam(':Nombre', $producto->nombre); 
+                $stmt->bindParam(':Descripcion', $producto->descripcion); 
+                $stmt->bindParam(':Precio', $producto->precio); 
+                $stmt->bindParam(':Marca', $producto->marca);
+                $stmt->bindParam(':Categoria_Producto_1', $producto->categoria1);  
+                $stmt->bindParam(':Categoria_Producto_2', $producto->categoria2);  
+                $stmt->bindParam(':Categoria_Producto_3', $producto->categoria3);  
+                $stmt->bindParam(':Categoria_Producto_4', $producto->categoria4);  
+                $stmt->bindParam(':Imagen_de_Producto', $producto->imagen); 
+                $stmt->bindParam(':Categoria_Combinacion', $producto->tipoVariante); 
+                $stmt->bindParam(':Nombre_Combinacion', $producto->valorVariante); 
+                $stmt->bindParam(':codigo_winfenix', $producto->codigo); 
+                $stmt->execute();
+           
+            
+            $commit = $this->instancia->commit();
+            $response = array('status' => 'success', 'mensaje'=> 'Registro actualizado en la base de datos.', 'commit' => $commit );
+            return $response;
+            
+        }catch(\PDOException $exception){
+            $this->instancia->rollBack();
+            return array('status' => 'error', 'mensaje' => $exception->getMessage() );
+        }
+   
+    }
+
     public function postAddProductos($productos) {
 
         try{
