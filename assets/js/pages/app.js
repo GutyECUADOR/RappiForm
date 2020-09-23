@@ -64,7 +64,7 @@ const app = new Vue({
                         this.nuevoProducto.descripcion = producto.DESCRIPCION;
                         this.nuevoProducto.sku = producto.SKU;
                         this.nuevoProducto.precio = producto.PRECIO;
-                        this.nuevoProducto.marca = producto.CODIGOMARCA;
+                        this.nuevoProducto.marca = producto.MARCA;
                     }
             }).catch( error => {
                 console.error(error);
@@ -107,28 +107,39 @@ const app = new Vue({
         },
         editarProducto(producto){
             this.productoEditado = producto;
+            console.log(this.productoEditado);
+            this.getTiposVarianteEditar(this.productoEditado.tipoVariante);
         },
         updateProducto(){
-            let formData = new FormData();
-            formData.append('producto', JSON.stringify(this.productoEditado));
-
-            fetch(`./api/index.php/api.php?action=postUpdateProducto`, {
-            method: 'POST',
-            body: formData
-            })
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                console.log('Producto actualizados', data);
-                if (data.status == 'success') {
-                $('#modalEditarProducto').modal('hide');
-                this.getAllProductos();
-                }
-                alert(data.mensaje)
-            }).catch(error => {
-                console.error(error);
-            });
+            if (this.productoEditado.refaliado && this.productoEditado.marca && this.productoEditado.categoria1
+                && this.productoEditado.categoria2 && this.productoEditado.categoria3 && this.productoEditado.categoria4
+                && this.productoEditado.imagen && this.productoEditado.tipoVariante && this.productoEditado.valorVariante 
+                ) {
+                    let formData = new FormData();
+                    formData.append('producto', JSON.stringify(this.productoEditado));
+        
+                    fetch(`./api/index.php/api.php?action=postUpdateProducto`, {
+                    method: 'POST',
+                    body: formData
+                    })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Producto actualizados', data);
+                        if (data.status == 'success') {
+                        $('#modalEditarProducto').modal('hide');
+                        this.getAllProductos();
+                        }
+                        alert(data.mensaje)
+                    }).catch(error => {
+                        console.error(error);
+                    });
+               
+            }else{
+                alert('El producto esta incompleto. Revise que se ha ingresado toda la informacion.');
+            }
+           
         },
         deleteProductToList(producto) {
 
@@ -152,6 +163,20 @@ const app = new Vue({
             }).catch( error => {
                 console.error(error);
             });  
+        },
+        getTiposVarianteEditar(tipo){
+            let busqueda = JSON.stringify({tipo});
+            console.log(busqueda)
+            fetch(`./api/index.php/api.php?action=getValoresVariantes&busqueda=${ busqueda }`)
+                 .then( response => {
+                 return response.json();
+                 })
+                 .then( result => {
+                 console.log('Valores Variantes', result.data);
+                 this.valoresVariantes = result.data
+             }).catch( error => {
+                 console.error(error);
+             });  
         },
         saveProducts() {
             if (this.productos.length <= 0) {

@@ -93,7 +93,7 @@
 
             <div class="input-group">
                 <span class="input-group-addon" style="min-width: 217px;">Tipo Variante</span>
-                <select v-model='productoEditado.tipoVariante' @change="getTiposVariante($event)"  class="form-control input-sm">
+                <select v-model='productoEditado.tipoVariante' @change="getTiposVariante($event)" class="form-control input-sm">
                     <option value="">Seleccione por favor</option>
                     <option v-for="variante in tiposVariantes" :value="variante.NOMBRE">
                     {{variante.NOMBRE}}

@@ -29,7 +29,7 @@ class ajaxModel extends conexion  {
 
     public function getMarcas(){
         $query = "
-            SELECT CODIGO, NOMBRE FROM INV_MARCAS
+            SELECT CODIGO, RTRIM(NOMBRE) as NOMBRE FROM INV_MARCAS
         ";
         
         $stmt = $this->instancia->prepare($query); 
@@ -116,7 +116,7 @@ class ajaxModel extends conexion  {
                 RTRIM(INV_ARTICULOS.NOMBRE) as NOMBRE, 
                 RAPPI_ARTICULOS.Descripcion as DESCRIPCION,
                 MARCA.CODIGO as CODIGOMARCA,
-                MARCA.NOMBRE as MARCA,
+                RTRIM(MARCA.NOMBRE) as MARCA,
                 CONVERT(DECIMAL(10,2),INV_ARTICULOS.PrecA * 1.12) as PRECIO,
                 INV_ARTICULOS.PESO as PESO,
                 INV_ARTICULOS.CodAlt as SKU,
@@ -159,7 +159,7 @@ class ajaxModel extends conexion  {
             codigo_winfenix as codigo,
             Nombre as nombre,
             Descripcion as descripcion,
-            Marca as marca,
+            RTRIM(Marca) as marca,
             sku,
             Categoria_Producto_1 as categoria1,
             Categoria_Producto_2 as categoria2,
