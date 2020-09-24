@@ -46,6 +46,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                 <th style="min-width: 110px;" class="text-center">Descripcion Rappi</th>
                                 <th style="min-width: 130px;" class="text-center">SKU</th>
                                 <th style="min-width: 100px;" class="text-center">Marca</th>
+                                <th style="min-width: 100px;" class="text-center">Precio</th>
                                 <th style="min-width: 110px;" class="text-center">Categoria1</th>
                                 <th style="min-width: 110px;" class="text-center">Categoria2</th>
                                 <th style="min-width: 110px;" class="text-center">Categoria3</th>
@@ -93,6 +94,9 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                             {{marca.NOMBRE}}
                                             </option>
                                         </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" v-model='nuevoProducto.precio' class="form-control text-center input-sm" readonly>
                                     </td>
                                     <td>
                                         <select id="categoria1" v-model='nuevoProducto.categoria1' class="form-control input-sm">
@@ -187,6 +191,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                     <tr>
                                     <th style="min-width: 100px;" class="text-center">Codigo Winfenix</th>
                                     <th style="min-width: 200px;" class="text-center">Nombre del Articulo</th>
+                                    <th style="min-width: 200px;" class="text-center">Precio</th>
                                     <th style="min-width: 50px;" class="text-center">Editar</th>
                                 </tr>
                                 </thead>
@@ -198,6 +203,9 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         </td>
                                         <td>
                                             <input type="text" v-model='producto.nombre' class="form-control text-center input-sm" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" v-model='producto.precio' class="form-control text-center input-sm" readonly>
                                         </td>
                                         <td>
                                             <button class="btn btn-default input-sm btn-block" @click="editarProducto(producto)" type="button" data-toggle="modal" data-target="#modalEditarProducto">

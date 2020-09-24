@@ -159,6 +159,7 @@ class ajaxModel extends conexion  {
             codigo_winfenix as codigo,
             Nombre as nombre,
             Descripcion as descripcion,
+            Precio as precio,
             RTRIM(Marca) as marca,
             sku,
             Categoria_Producto_1 as categoria1,

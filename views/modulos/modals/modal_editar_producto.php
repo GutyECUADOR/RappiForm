@@ -25,7 +25,7 @@
             </div>
 
             <div class="input-group">
-            <span class="input-group-addon" style="min-width: 217px;">Descripcion</span>
+                <span class="input-group-addon" style="min-width: 217px;">Descripcion</span>
                 <textarea v-model='productoEditado.descripcion' class="form-control" rows="3" ></textarea>
             </div>
 
@@ -109,6 +109,11 @@
                     {{variante.NOMBRE}}
                     </option>
                 </select>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" style="min-width: 217px;">Descripcion</span>
+                <textarea v-model='productoEditado.imagen' class="form-control" rows="3" ></textarea>
             </div>
             
 
