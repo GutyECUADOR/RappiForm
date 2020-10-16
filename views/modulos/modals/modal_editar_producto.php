@@ -53,7 +53,7 @@
 
             <div class="input-group">
                 <span class="input-group-addon" style="min-width: 217px;">Categoria 1</span>
-                <select id="categoria1" v-model='productoEditado.categoria1' class="form-control input-sm">
+                <select v-model='productoEditado.categoria1' class="form-control input-sm">
                     <option value="">Seleccione por favor</option>
                     <option v-for="categoria in categorias1" :value="categoria.NOMBRE">
                         {{categoria.NOMBRE}}
@@ -63,7 +63,7 @@
 
             <div class="input-group">
                 <span class="input-group-addon" style="min-width: 217px;">Categoria 2</span>
-                <select id="categoria1" v-model='productoEditado.categoria2' class="form-control input-sm">
+                <select v-model='productoEditado.categoria2' class="form-control input-sm">
                     <option value="">Seleccione por favor</option>
                     <option v-for="categoria in categorias2" :value="categoria.NOMBRE">
                         {{categoria.NOMBRE}}
@@ -73,7 +73,7 @@
 
             <div class="input-group">
                 <span class="input-group-addon" style="min-width: 217px;">Categoria 3</span>
-                <select id="categoria1" v-model='productoEditado.categoria3' class="form-control input-sm">
+                <select v-model='productoEditado.categoria3' class="form-control input-sm">
                     <option value="">Seleccione por favor</option>
                     <option v-for="categoria in categorias3" :value="categoria.NOMBRE">
                         {{categoria.NOMBRE}}
@@ -83,7 +83,7 @@
 
             <div class="input-group">
                 <span class="input-group-addon" style="min-width: 217px;">Categoria 4</span>
-                <select id="categoria1" v-model='productoEditado.categoria4' class="form-control input-sm">
+                <select v-model='productoEditado.categoria4' class="form-control input-sm">
                     <option value="">Seleccione por favor</option>
                     <option v-for="categoria in categorias4" :value="categoria.NOMBRE">
                         {{categoria.NOMBRE}}
@@ -102,12 +102,21 @@
             </div>
 
             <div class="input-group">
-                <span class="input-group-addon" style="min-width: 217px;">Tipo Variante</span>
+                <span class="input-group-addon" style="min-width: 217px;">Valor Variante</span>
                 <select v-model='productoEditado.valorVariante' class="form-control input-sm">
                     <option value="">Seleccione por favor</option>
                     <option v-for="variante in valoresVariantes" :value="variante.NOMBRE">
-                    {{variante.NOMBRE}}
+                    {{ variante.CODIGO }} ({{variante.NOMBRE}})
                     </option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" style="min-width: 217px;">Aplica Variante</span>
+                <select v-model='productoEditado.aplicaVariante' class="form-control input-sm">
+                    <option value="0">No posee variantes</option>
+                    <option value="1">Si posee variantes</option>
+                   
                 </select>
             </div>
 

@@ -168,7 +168,8 @@ class ajaxModel extends conexion  {
             Categoria_Producto_4 as categoria4,
             Imagen_de_Producto as imagen,
             Categoria_Combinacion as tipoVariante,
-            Nombre_Combinacion as valorVariante
+            Nombre_Combinacion as valorVariante,
+            aplicaVariante
         FROM 
             KAO_wssp.dbo.rappi_products_parcial
         "; 
@@ -265,7 +266,8 @@ class ajaxModel extends conexion  {
                                 Categoria_Producto_4 = :Categoria_Producto_4, 
                                 Imagen_de_Producto = :Imagen_de_Producto, 
                                 Categoria_Combinacion = :Categoria_Combinacion, 
-                                Nombre_Combinacion = :Nombre_Combinacion
+                                Nombre_Combinacion = :Nombre_Combinacion,
+                                aplicaVariante = :aplicaVariante
                     WHERE codigo_winfenix = :codigo_winfenix
                 "; 
 
@@ -283,6 +285,7 @@ class ajaxModel extends conexion  {
                 $stmt->bindParam(':Imagen_de_Producto', $producto->imagen); 
                 $stmt->bindParam(':Categoria_Combinacion', $producto->tipoVariante); 
                 $stmt->bindParam(':Nombre_Combinacion', $producto->valorVariante); 
+                $stmt->bindParam(':aplicaVariante', $producto->aplicaVariante); 
                 $stmt->bindParam(':codigo_winfenix', $producto->codigo); 
                 $stmt->execute();
            

@@ -143,7 +143,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                                         <select id="tiposVariantes" v-model='nuevoProducto.valorVariante' class="form-control input-sm">
                                             <option value="">Seleccione por favor</option>
                                             <option v-for="variante in valoresVariantes" :value="variante.NOMBRE">
-                                            {{variante.NOMBRE}}
+                                            {{ variante.CODIGO }} ({{variante.NOMBRE}})
                                             </option>
                                         </select>
                                     </td>
