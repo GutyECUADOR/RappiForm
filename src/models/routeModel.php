@@ -7,7 +7,11 @@ class routeModel {
             case 'inicio':
                 $contenido = "views/modulos/inicioView.php";
                 break;
-                
+            
+            case 'cargaProductos':
+                $contenido = "views/modulos/cargaProductosView.php";
+                break;  
+
             case 'pedidoaMatriz':
                 $contenido = "views/modulos/pedidoMatrizView.php";
                 break;    

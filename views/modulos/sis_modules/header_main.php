@@ -17,7 +17,8 @@
     
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        
+        <li><a href="?action=inicio"><i class="fa fa-file" aria-hidden="true"></i></span> Nuevo Producto</a></li>
+        <li><a href="?action=cargaProductos"><i class="fa fa-upload" aria-hidden="true"></i></span> Carga de Productos</a></li>
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bienvenido, <?php echo $_SESSION["usuarioNOMBRE".APP_UNIQUE_KEY] ?><span class="caret"></span></a>
         <ul class="dropdown-menu">

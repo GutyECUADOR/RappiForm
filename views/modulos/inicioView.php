@@ -179,7 +179,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                     <!-- Default panel contents -->
                 
                     <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Items a publicar en Rappi</h4>
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Items en Rappi</h4>
                     <div class="btn-group pull-right">
                     </div>
                     </div>

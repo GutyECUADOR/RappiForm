@@ -121,7 +121,7 @@
             </div>
 
             <div class="input-group">
-                <span class="input-group-addon" style="min-width: 217px;">Descripcion</span>
+                <span class="input-group-addon" style="min-width: 217px;">Imagen</span>
                 <textarea v-model='productoEditado.imagen' class="form-control" rows="3" ></textarea>
             </div>
             
