@@ -93,8 +93,7 @@ const app = new Vue({
                     newProducto.categoria4 = rowExcel['Categoria 3'];
                     newProducto.tipoVariante = '';
                     newProducto.valorVariante = '';
-                    newProducto.aplicaVariante = 0;
-                   
+                    
                     this.productos.push(newProducto);
                   });
                   
@@ -154,34 +153,34 @@ const app = new Vue({
             return
           }
 
-          let checkDuplicatedValue = this.checkDuplicatedValue();
+        /*   let checkDuplicatedValue = this.checkDuplicatedValue();
           console.log(checkDuplicatedValue);
           if (checkDuplicatedValue.isDuplicado) {
             alert(`El producto ${checkDuplicatedValue.productoDuplicado.nombre}, posee la variante # ${(checkDuplicatedValue.varianteDuplicada)+1} duplicada, corrija talla o color y reintente.`);
             return;
-          }
+          } */
 
           console.log('Productos', this.productos);
-
           let formData = new FormData();
           formData.append('productos', JSON.stringify(this.productos));
 
-          fetch(`./views/modulos/ajax/api.php?action=postAddNewProducto_Shopy_Master`, {
+          fetch(`./api/index.php/api.php?action=postAddProductos`, {
             method: 'POST',
             body: formData
-          })
+            })
             .then(response => {
               return response.json();
             })
             .then(data => {
-              console.log('Producto Actalizado', data);
+              console.log('Productos registrados', data);
               if (data.status == 'success') {
-                this.producto = new Producto();
+                this.productos = [];
               }
               alert(data.mensaje)
             }).catch(error => {
               console.error(error);
             });
+          
         }
     },
     mounted(){

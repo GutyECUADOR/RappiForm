@@ -17,7 +17,7 @@ class Producto {
         this.imagen = 'http://'
         this.tipoVariante = '';
         this.valorVariante = '';
-        this.aplicaVariante = '';
+        this.aplicaVariante = 0;
     }
 
     

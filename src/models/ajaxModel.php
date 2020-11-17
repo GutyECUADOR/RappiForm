@@ -74,7 +74,10 @@ class ajaxModel extends conexion  {
 
     public function getCategorias($categoria='1'){
         $query = "
-            SELECT * FROM KAO_wssp.dbo.INV_ECOMM_CATEGORIAS
+            SELECT 
+                CODIGO, 
+                RTRIM(NOMBRE) as NOMBRE, 
+                TIPO FROM KAO_wssp.dbo.INV_ECOMM_CATEGORIAS
             WHERE tipo = :categoria
         ";
         
@@ -311,7 +314,7 @@ class ajaxModel extends conexion  {
             
                 // 1rst Transaction para el master 
                 $query = " 
-                    INSERT INTO KAO_wssp.dbo.rappi_products_parcial 
+                    INSERT INTO KAO_wssp.dbo.rappi_products_parcial
                                 (refAliado, 
                                 codigo_winfenix, 
                                 sku, 

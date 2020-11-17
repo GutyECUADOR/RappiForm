@@ -89,7 +89,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
                 
 
                     <div class="btn-group" role="group">
-                        <button type="button" @click="saveProducts()" class="btn btn-primary btn-lg" disabled><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Guardar</button>
+                        <button type="button" @click="saveProducts()" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> Guardar</button>
                     </div>
 
                     <div class="btn-group" role="group">
@@ -105,7 +105,7 @@ if (!isset($_SESSION["usuarioRUC".APP_UNIQUE_KEY])){
         <?php require_once 'modals/modal_info_session.php'?>
 
         <!-- Modal Info sesion -->
-        <?php require_once 'modals/modal_editar_producto.php'?>
+        <?php require_once 'modals/modal_editar_producto_excel.php'?>
     </div>
 
 
